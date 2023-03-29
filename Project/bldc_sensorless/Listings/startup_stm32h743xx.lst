@@ -1278,12 +1278,11 @@ ARM Macro Assembler    Page 20
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
 interwork --depend=.\objects\startup_stm32h743xx.d -o.\objects\startup_stm32h74
-3xx.o -ID:\project\bldc_sensorless\Project\bldc_sensorless\RTE -IC:\ResearchPro
-gram\Keil_v52\ARM\PACK\Keil\STM32H7xx_DFP\2.4.0\Drivers\CMSIS\Device\ST\STM32H7
-xx\Include -IC:\ResearchProgram\Keil_v52\ARM\CMSIS\Include --predefine="__UVISI
-ON_VERSION SETA 521" --predefine="STM32H743xx SETA 1" --list=.\listings\startup
-_stm32h743xx.lst ..\..\Library\CMSIS\Device\ST\STM32H7xx\Source\Templates\arm\s
-tartup_stm32h743xx.s
+3xx.o -I.\RTE\_bldc_sensorless -IC:\ResearchProgram\Keil_v529\ARM\PACK\Keil\STM
+32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include -IC:\ResearchProgram
+\Keil_v529\ARM\CMSIS\Include --predefine="__UVISION_VERSION SETA 529" --predefi
+ne="STM32H743xx SETA 1" --list=.\listings\startup_stm32h743xx.lst ..\..\Library
+\CMSIS\Device\ST\STM32H7xx\Source\Templates\arm\startup_stm32h743xx.s
 
 
 

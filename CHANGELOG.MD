@@ -6,3 +6,10 @@ ADD:		First Release.
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+Date: 03292023
+
+ADD:		Parameters of pole pair.
+Fixed:	Bugs in initial speed when speed loop activing.
+MODIFY:	Speed calculation descriptions.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

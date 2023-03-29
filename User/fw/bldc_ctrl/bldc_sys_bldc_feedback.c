@@ -48,25 +48,28 @@ void bldc0_speed_feedback(void)
   float f = 0;
 	uint8_t i;
 
-  /* 计算速度：
-     电机每转一圈phase U共用4个脉冲
-	(1.0/(200000000.0/BLDC0_PWM_PRESCALER_COUNT/BLDC0_PWM_PERIOD_COUNT)为计数器的周期
-	(1.0/(200000000.0/BLDC0_PWM_PRESCALER_COUNT/BLDC0_PWM_PERIOD_COUNT) * emf_high_count)为时间长。
-  */
-//  if (BLDC0.emf_zerodetect_step.emf_high_count == 0)
-//		BLDC0.speed.speed_feedback_raw_array[BLDC0.speed.filter_member_count++] = 0;
-//  else
-//  {
-    f = (1.0f / ((200000000.0f / (float)BLDC0_PWM_PRESCALER_COUNT) / 
-				(float)BLDC0_PWM_PERIOD_COUNT)* (float)(BLDC0.emfzero_detect.emfzero_delay_time * 6));
-    f = (1.0f / 4.0f) / (f  / 60.0f);
-		// update speed direction
-		if(BLDC0.direction.dir_target == MOTOR_REV)
-		{
-			f = -f;
-		}
-		BLDC0.speed.speed_feedback_raw_array[BLDC0.speed.filter_member_count++] = f;
-//  }
+	// speed from emf zero detect
+	// half period of electrical degree: BLDC0.emfzero_detect.emfzero_delay_time * 6
+	// timer scale: 1/(Timer clk/BLDC0_PWM_PRESCALER_COUNT/BLDC0_PWM_PERIOD_COUNT)
+	// timer scale: 1/(200000000/5000/2) = 50us(20kHz)
+	// thus, time of half period of electrical degree: (unit:s)
+	f = (1.0f / ((200000000.0f / (float)BLDC0_PWM_PRESCALER_COUNT) / 
+			(float)BLDC0_PWM_PERIOD_COUNT) * (float)(BLDC0.emfzero_detect.emfzero_delay_time * 6));
+	// changing from second to minute: f/60
+	// half period of electrical degree of per minute: 1/(f/60) 
+	// half period of electrical degree is accord with BLDC_POLE
+	// one period of electrical degree is accord with BLDC_POLE_PAIR
+	// formula: mechanical degree * BLDC_POLE_PAIR = electrical degree
+	// one period of mechanical degree of per minute: 1/(f/60)/BLDC_POLE
+	// one period of mechanical degree of per minute: 1/(f/60)/8	
+	f = (1.0f / (float)BLDC_POLE) / (f  / 60.0f);	
+	
+	// update speed direction
+	if(BLDC0.direction.dir_target == MOTOR_REV)
+	{
+		f = -f;
+	}
+	BLDC0.speed.speed_feedback_raw_array[BLDC0.speed.filter_member_count++] = f;
 	
 	// When the number of raw speed data is more than filter member number, switching speed filter algorithm.
   if (BLDC0.speed.filter_member_count >= SPEED_FILTER_NUM)

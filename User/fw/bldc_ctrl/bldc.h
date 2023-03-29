@@ -14,7 +14,6 @@
 
 #include "bldc_param.h"
 #include "bldc_bsp.h"
-#include "butterworth_filter.h"
 
 //===============================================
 // BLDC basic enum and structure
